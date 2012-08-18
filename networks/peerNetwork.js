@@ -8,7 +8,8 @@ function PeerNetwork(connection, channel) {
     var mx = connection.mx
         , networkName = connection.networkName
         , localPeerId = connection.selfId
-        , peerStream = mx.createStream(networkName + "/peer/echo/" + channel)
+        , peerStream = mx.createStream(networkName + "/peer/echo/" +
+            encodeURIComponent(channel))
         , peerEmitter = new RemoteEventEmitter()
         , network = new EventEmitter()
 

@@ -8,7 +8,8 @@ function RelayNetwork(connection, channel) {
     var mx = connection.mx
         , networkName = connection.networkName
         , localPeerId = connection.selfId
-        , relayStream = mx.createStream(networkName + "/relay/echo/" + channel)
+        , relayStream = mx.createStream(networkName + "/relay/echo/" +
+            encodeURIComponent(channel))
         , relayEmitter = new RemoteEventEmitter()
         , network = new EventEmitter()
 

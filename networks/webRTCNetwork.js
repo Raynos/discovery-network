@@ -10,8 +10,8 @@ function WebRTCNetwork(connection, channel) {
     var mx = connection.mx
         , networkName = connection.networkName
         , localPeerId = connection.selfId
-        , webrtcStream = mx.createStream(
-            networkName + "/webrtc/echo/" + channel)
+        , webrtcStream = mx.createStream(networkName + "/webrtc/echo/" +
+            encodeURIComponent(channel))
         , webrtcEmitter = new RemoteEventEmitter()
         , network = new EventEmitter()
 
