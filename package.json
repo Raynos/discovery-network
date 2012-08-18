@@ -27,7 +27,11 @@
     "remote-events": "~1.1.1",
     "browser-log": "0.0.2"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "webrtc-stream": "~0.3.3",
+    "browserify-server": "~0.3.1",
+    "mux-demux-shoe": "~0.2.7"
+  },
   "licenses": [
     {
       "type": "MIT",
