@@ -46,7 +46,7 @@ function RelayStreams(conn, name, callback) {
     }
 
     function destroy() {
-        rcs.destory()
+        rcs.destroy()
         peerNetwork.destroy()
         relayNetwork.destroy()
 
