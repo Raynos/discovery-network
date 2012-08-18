@@ -3,15 +3,15 @@ var DiscoveryNetwork = require("../../../browser")
     , Connection = DiscoveryNetwork.Connection
     , PeerNetwork = DiscoveryNetwork.PeerNetwork
     , RelayNetwork = DiscoveryNetwork.RelayNetwork
-    , RelayConnection = DiscoveryNetwork.RelayConnection
+    , SimpleRelayConnections = DiscoveryNetwork.SimpleRelayConnections
+    , forEach = require("iterators").forEachSync
 
 var chatBox = document.getElementById("chat-box")
     , chatMessages = document.getElementById("chat-messages")
     , chatButton = document.getElementById("chat-button")
     // Open discovery connection
     , conn = Connection("http://localhost:8081/shoe")
-    , connections = {}
-    , streams = []
+    , rcs = SimpleRelayConnections(conn)
 
 chatButton.addEventListener("click", sendMessage)
 
@@ -33,55 +33,41 @@ peerNetwork.on("peer", handlePeer)
 relayNetwork.on("offer", handleOffer)
 
 // incoming answers from another peer
-relayNetwork.on("answer", handleAnswer)
+relayNetwork.on("answer", rcs.handleAnswer)
+
+// handle streams coming out of rcs
+rcs.on("stream", handleStream)
 
 peerNetwork.join()
 
 function handlePeer(remotePeerId) {
-    var rc = connections[remotePeerId] = RelayConnection(conn)
-        , offer = rc.createOffer()
+    var offer = rcs.create(remotePeerId)
 
     relayNetwork.sendOffer(remotePeerId, offer)
 }
 
 function handleOffer(remotePeerId, offer) {
-    var rc = connections[remotePeerId] = RelayConnection(conn)
-
-    rc.on("stream", handleStream)
-
-    rc.receiveOffer(offer)
-    
-    var answer = rc.createAnswer(offer)
+    var answer = rcs.create(remotePeerId, offer)
 
     relayNetwork.sendAnswer(remotePeerId, answer)
 }
 
-function handleAnswer(remotePeerId, answer) {
-    var rc = connections[remotePeerId]
-
-    rc.on("stream", handleStream)
-
-    rc.receiveAnswer(answer)
-}
-
-function handleStream(stream) {
+function handleStream(remotePeerId, stream) {
     chatButton.disabled = false
 
-    streams.push(stream)
-
     stream.on("data", renderMessage)
-}
 
-function renderMessage(data) {
-    var msg = document.createElement("div")
-    msg.textContent = "stranger: " + data
-    chatMessages.appendChild(msg)
+    function renderMessage(data) {
+        var msg = document.createElement("div")
+        msg.textContent = "stranger[" + remotePeerId + "]: " + data
+        chatMessages.appendChild(msg)
+    }
 }
 
 function sendMessage() {
     var text = chatBox.value
     chatBox.value = ""
-    streams.forEach(send)
+    forEach(rcs.streams, send)
 
     var msg = document.createElement("div")
     msg.textContent = "self: " + text

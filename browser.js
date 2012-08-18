@@ -6,6 +6,7 @@ var Connection = require("./networks/connection")
     , WebRTCNetwork = require("./networks/webRTCNetwork")
     , RelayNetwork = require("./networks/relayNetwork")
     , RelayConnection = require("./connections/relayConnection")
+    , SimpleRelayConnections = require("./connections/simpleRelayConnections")
     , log = require("./log")
 
 module.exports = {
@@ -14,5 +15,6 @@ module.exports = {
     , WebRTCNetwork: WebRTCNetwork
     , RelayNetwork: RelayNetwork
     , RelayConnection: RelayConnection
+    , SimpleRelayConnections: SimpleRelayConnections
     , log: log
 }
