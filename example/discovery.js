@@ -3,7 +3,9 @@ var http = require("http")
     , DiscoveryNetwork = require("..")
 
 var server = http.createServer().listen(8081)
-    , network = DiscoveryNetwork()
+    , network = DiscoveryNetwork({
+        log: true
+    })
 
 shoe(network).install(server, "/shoe")
 

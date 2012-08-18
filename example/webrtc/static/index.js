@@ -15,10 +15,6 @@ MediaStream.local(localVideo, function (myMediaStream) {
     var conn = Connection("http://localhost:8081/shoe")
         , pcs = SimplePeerConnections(myMediaStream)
 
-    conn.on("connect", function () {
-        console.log("open")
-    })
-
     webrtcLog.enabled = true
     discoveryLog.enabled = true
 

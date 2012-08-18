@@ -1,7 +1,8 @@
-var MuxDemux = require("mux-demux")
-    , StreamRouter = require("stream-router")
+var StreamRouter = require("stream-router")
     , EchoChamber = require("multi-channel-mdm")
     , logger = require("mux-demux-logger")
+    , handleOffer = require("./relays/offer")
+    , handleAnswer = require("./relays/answer")
 
 module.exports = DiscoveryNetwork
 
@@ -19,6 +20,8 @@ function DiscoveryNetwork(options) {
     router.addRoute(prefix + "/peer/echo", EchoChamber())
     router.addRoute(prefix + "/webrtc/echo", EchoChamber())
     router.addRoute(prefix + "/relay/echo", EchoChamber())
+    router.addRoute(prefix + "/relay/offer", handleOffer)
+    router.addRoute(prefix + "/relay/answer", handleAnswer)
 
     if (log) {
         return logger(router)
