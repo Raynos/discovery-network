@@ -7,6 +7,7 @@ var Connection = require("./networks/connection")
     , RelayNetwork = require("./networks/relayNetwork")
     , RelayConnection = require("./connections/relayConnection")
     , SimpleRelayConnections = require("./connections/simpleRelayConnections")
+    , RelayStreams = require("./connections/relayStreams")
     , log = require("./log")
 
 module.exports = {
@@ -16,5 +17,6 @@ module.exports = {
     , RelayNetwork: RelayNetwork
     , RelayConnection: RelayConnection
     , SimpleRelayConnections: SimpleRelayConnections
+    , RelayStreams: RelayStreams
     , log: log
 }
