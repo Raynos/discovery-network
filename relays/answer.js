@@ -12,6 +12,8 @@ function handleAnswer(answerStream) {
             return answerStream.error("invalid answer token")
         }
 
+        store.delete(token)
+
         offerStream.write("open")
         answerStream.write("open")
         answerStream.pipe(offerStream).pipe(answerStream)

@@ -22,8 +22,8 @@ MediaStream.local(localVideo, function (myMediaStream) {
 
     conn.identify()
 
-    var peerNetwork = PeerNetwork(conn)
-        , webrtcNetwork = WebRTCNetwork(conn)
+    var peerNetwork = PeerNetwork(conn, "discovery-network-demo:peer")
+        , webrtcNetwork = WebRTCNetwork(conn, "discovery-network-demo:webrtc")
 
     // when you detect a new peer joining, open a PC to them
     peerNetwork.on("peer", handlePeer)

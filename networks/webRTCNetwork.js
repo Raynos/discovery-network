@@ -6,11 +6,12 @@ var RemoteEventEmitter = require("remote-events")
 
 module.exports = WebRTCNetwork
 
-function WebRTCNetwork(connection) {
+function WebRTCNetwork(connection, channel) {
     var mx = connection.mx
         , networkName = connection.networkName
         , localPeerId = connection.selfId
-        , webrtcStream = mx.createStream(networkName + "/webrtc/echo")
+        , webrtcStream = mx.createStream(
+            networkName + "/webrtc/echo/" + channel)
         , webrtcEmitter = new RemoteEventEmitter()
         , network = new EventEmitter()
 

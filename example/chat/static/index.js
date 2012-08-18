@@ -23,8 +23,8 @@ discoveryLog.enabled = true
 // Identify ourself with a random UUID
 conn.identify()
 
-var peerNetwork = PeerNetwork(conn)
-    , relayNetwork = RelayNetwork(conn)
+var peerNetwork = PeerNetwork(conn, "discovery-network-demo:peer")
+    , relayNetwork = RelayNetwork(conn, "discovery-network-demo:relay")
 
 // when you detect a new peer joining, open a RC to them
 peerNetwork.on("peer", handlePeer)

@@ -4,11 +4,11 @@ var RemoteEventEmitter = require("remote-events")
 
 module.exports = RelayNetwork
 
-function RelayNetwork(connection) {
+function RelayNetwork(connection, channel) {
     var mx = connection.mx
         , networkName = connection.networkName
         , localPeerId = connection.selfId
-        , relayStream = mx.createStream(networkName + "/relay/echo")
+        , relayStream = mx.createStream(networkName + "/relay/echo/" + channel)
         , relayEmitter = new RemoteEventEmitter()
         , network = new EventEmitter()
 

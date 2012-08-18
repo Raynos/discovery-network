@@ -17,9 +17,9 @@ function DiscoveryNetwork(options) {
         , prefix = options.prefix || "/discovery"
         , router = StreamRouter()
 
-    router.addRoute(prefix + "/peer/echo", EchoChamber())
-    router.addRoute(prefix + "/webrtc/echo", EchoChamber())
-    router.addRoute(prefix + "/relay/echo", EchoChamber())
+    router.addRoute(prefix + "/peer/echo/:streamName", EchoChamber())
+    router.addRoute(prefix + "/webrtc/echo/:streamName", EchoChamber())
+    router.addRoute(prefix + "/relay/echo/:streamName", EchoChamber())
     router.addRoute(prefix + "/relay/offer", handleOffer)
     router.addRoute(prefix + "/relay/answer", handleAnswer)
 
