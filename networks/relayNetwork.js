@@ -22,6 +22,7 @@ function RelayNetwork(connection, channel) {
     network.sendOffer = sendOffer
 
     network.identify = identify
+    network.destroy = destroy
 
     return network
 
@@ -51,5 +52,12 @@ function RelayNetwork(connection, channel) {
 
     function identify(user) {
         localPeerId = user.toString()
+    }
+
+    function destroy() {
+        relayStream.end()
+        relayStream.destroy()
+
+        network.emit("close")
     }
 }

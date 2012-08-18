@@ -1,5 +1,6 @@
 var EventEmitter = require("events").EventEmitter
     , RelayConnection = require("./relayConnection")
+    , forEach = require("iterators").forEachSync
     , log = require("../log")
 
 module.exports = SimpleRelayConnections
@@ -11,6 +12,7 @@ function SimpleRelayConnections(conn) {
 
     rcs.create = create
     rcs.handleAnswer = handleAnswer
+    rcs.destroy = destroy
 
     return rcs
 
@@ -48,4 +50,15 @@ function SimpleRelayConnections(conn) {
             rcs.emit("stream", remotePeerId, stream)
         }
     }
+
+    function destroy() {
+        forEach(rcs.streams, close)
+
+        rcs.emit("close")
+    }
+}
+
+function close(stream) {
+    stream.end()
+    stream.destroy()
 }

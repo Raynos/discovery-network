@@ -18,6 +18,7 @@ function PeerNetwork(connection, channel) {
     peerEmitter.on("peer", onpeer)
 
     network.join = join
+    network.destroy = destroy
 
     return network
 
@@ -34,5 +35,12 @@ function PeerNetwork(connection, channel) {
             localPeerId = user.toString()
         }
         peerEmitter.emit("peer", localPeerId)
+    }
+
+    function destroy() {
+        peerStream.end()
+        peerStream.destroy()
+
+        network.emit("close")
     }
 }

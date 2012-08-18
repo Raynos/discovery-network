@@ -26,6 +26,7 @@ function WebRTCNetwork(connection, channel) {
     network.sendCandidate = sendCandidate
 
     network.identify = identify
+    network.destroy = destroy
 
     return network
 
@@ -73,5 +74,12 @@ function WebRTCNetwork(connection, channel) {
 
     function identify(user) {
         localPeerId = user.toString()
+    }
+
+    function destroy() {
+        webrtcStream.end()
+        webrtcStream.destroy()
+
+        network.emit("close")
     }
 }

@@ -1,6 +1,7 @@
 var SimpleRelayConnections = require("./simpleRelayConnections")
     , RelayNetwork = require("../networks/relayNetwork")
     , PeerNetwork = require("../networks/peerNetwork")
+    , EventEmitter = require("events").EventEmitter
 
 module.exports = RelayStreams
 
@@ -8,6 +9,7 @@ function RelayStreams(conn, name, callback) {
     var rcs = SimpleRelayConnections(conn)
         , peerNetwork = PeerNetwork(conn, name + "/peer")
         , relayNetwork = RelayNetwork(conn, name + "/relay")
+        , streams = new EventEmitter()
         
     // when you detect a new peer joining, open a RC to them
     peerNetwork.on("peer", handlePeer)
@@ -23,12 +25,13 @@ function RelayStreams(conn, name, callback) {
 
     peerNetwork.join()
 
-    return {
-        rcs: rcs
-        , streams: rcs.streams
-        , peerNetwork: peerNetwork
-        , relayNetwork: relayNetwork
-    }
+    streams.rcs = rcs
+    streams.streams = rcs.streams
+    streams.peerNetwork = peerNetwork
+    streams.relayNetwork = relayNetwork
+    streams.destroy = destroy
+
+    return streams
 
     function handlePeer(remotePeerId) {
         var offer = rcs.create(remotePeerId)
@@ -40,5 +43,13 @@ function RelayStreams(conn, name, callback) {
         var answer = rcs.create(remotePeerId, offer)
 
         relayNetwork.sendAnswer(remotePeerId, answer)
+    }
+
+    function destroy() {
+        rcs.destory()
+        peerNetwork.destroy()
+        relayNetwork.destroy()
+
+        streams.emit("close")
     }
 }
