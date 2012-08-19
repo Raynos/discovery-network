@@ -5,9 +5,6 @@ var DiscoveryNetwork = require("../../../browser")
 // Open discovery connection
 var conn = Connection("http://localhost:8081/shoe")
 
-// Identify ourself with a random UUID
-conn.identify()
-
 // Open up a set of relay streams through the connection, on the namespace
 RelayStreams(conn, "discovery-network-demo", handleStream)
 

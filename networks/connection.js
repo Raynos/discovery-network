@@ -14,6 +14,7 @@ function Connection(uri, networkName) {
 
     stream.pipe(mx).pipe(stream)
 
+    conn.selfId = uuid()
     conn.networkName = networkName
     conn.identify = identify
     conn.mx = mx
@@ -25,9 +26,6 @@ function Connection(uri, networkName) {
     return conn
 
     function identify(user) {
-        if (!user) {
-            user = uuid()
-        }
         conn.selfId = user.toString()
     }
 }
