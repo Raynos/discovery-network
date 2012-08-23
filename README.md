@@ -1,3 +1,4 @@
+[![build status](https://secure.travis-ci.org/Raynos/discovery-network.png)](http://travis-ci.org/Raynos/discovery-network)
 # discovery-network
 
 A peer to peer discovery network in the cloud
