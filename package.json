@@ -1,6 +1,6 @@
 {
   "name": "discovery-network",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "A peer to peer discovery network in the cloud",
   "keywords": [],
   "author": "Raynos <raynos2@gmail.com>",
