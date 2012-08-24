@@ -52,6 +52,7 @@ function SimpleRelayConnections(conn) {
     }
 
     function destroy() {
+        log.info("destroy")
         forEach(rcs.streams, close)
 
         rcs.emit("close")

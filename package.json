@@ -27,13 +27,14 @@
     "remote-events": "~1.1.1",
     "browser-log": "0.0.2",
     "stream-store": "~0.2.0",
-    "iterators": "~0.2.0"
+    "iterators": "~0.2.0",
+    "buffer-stream": "0.0.1"
   },
   "devDependencies": {
-    "webrtc-stream": "~0.3.3",
     "browserify-server": "~0.3.1",
     "mux-demux-shoe": "~0.2.7",
-    "iterators": "~0.2.0"
+    "iterators": "~0.2.0",
+    "webrtc-stream": "~0.5.0"
   },
   "licenses": [
     {

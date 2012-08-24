@@ -14,6 +14,7 @@ function Connection(uri, networkName) {
 
     stream.pipe(mx).pipe(stream)
 
+    conn.selfId = uuid()
     conn.networkName = networkName
     conn.identify = identify
     conn.mx = mx
